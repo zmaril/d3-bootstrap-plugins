@@ -15,7 +15,8 @@
   <title></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="../src/css/index.css">
 </head>
 <body>
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
@@ -25,21 +26,20 @@
   <!-- Add your site or application content here -->
   <div id="main">
     <div id="text">
-      <h1>Art.</h1>
-      A man paints with his brains and not with his hands. 
-      -Michelangelo 
+      <h1>Tooltips.</h1>
+      Hover to display them.
     </div>
     <div id="graphic"></div>
   </div>
     <a href="https://github.com/zmaril/d3.js-boilerplate/tree/basic"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
   <!-- JavaScript at the bottom for fast page loading: http://developer.yahoo.com/performance/rules.html#js_bottom -->
-
+  
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.7.2.min.js"><\/script>')</script>
-    <script src="js/vendor/d3.v2.min.js"></script>
-    <script src="js/vendor/underscore.min.js"></script>
-    <script src="js/index.js"></script>
+    <script src="d3.v2.min.js"></script>
+    <script src="../src/js/tooltip.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

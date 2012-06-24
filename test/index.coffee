@@ -1,18 +1,3 @@
-d3.selection.prototype.tooltip = (f)->
-  console.log
-  body = d3.select('body')
-  tips = body.select("div.tooltips")
-
-  if tips[0].length is 0
-    tips.data([0]).enter()
-      .append("div")
-      .attr("class","tooltips")
-
-  this.each(()->
-    console.log this
-    tips.data([this]).append("div")
-  )
-
 graphic = new Object
 
 graphic.create = ()->
@@ -33,7 +18,13 @@ graphic.create = ()->
     .attr("cy",(d,i)-> d*40)
     .attr("r",(d,i)-> d*2)
     .tooltip( (d,i)->
-      title: "This is tooltip number #{i}"
+      title = "Berby Slerth number #{i}? <br />"
+      title += (if i is 2 then " I want this one!" else "Next!")
+      tmp =
+        "title": title
+        "dx": if i % 2 is 1 then 20 else -160
+        "dy": -10
+        "placement": if i % 2 is 1 then "right" else "left"
     )
 
-$(document).ready graphic.create
+$(document).ready(graphic.create)

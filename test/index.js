@@ -1,19 +1,5 @@
 var graphic;
 
-d3.selection.prototype.tooltip = function(f) {
-  var body, tips;
-  console.log;
-  body = d3.select('body');
-  tips = body.select("div.tooltips");
-  if (tips[0].length === 0) {
-    tips.data([0]).enter().append("div").attr("class", "tooltips");
-  }
-  return this.each(function() {
-    console.log(this);
-    return tips.data([this]).append("div");
-  });
-};
-
 graphic = new Object;
 
 graphic.create = function() {
@@ -30,8 +16,14 @@ graphic.create = function() {
   }).attr("r", function(d, i) {
     return d * 2;
   }).tooltip(function(d, i) {
-    return {
-      title: "This is tooltip number " + i
+    var title, tmp;
+    title = "Berby Slerth number " + i + "? <br />";
+    title += (i === 2 ? " I want this one!" : "Next!");
+    return tmp = {
+      "title": title,
+      "dx": i % 2 === 1 ? 20 : -160,
+      "dy": -10,
+      "placement": i % 2 === 1 ? "right" : "left"
     };
   });
 };
