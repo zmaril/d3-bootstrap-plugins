@@ -10,7 +10,6 @@ d3.selection.prototype.tooltip = function(f) {
   return this.each(function(d, i) {
     var el, key, options, value;
     options = f.apply(this, arguments);
-    console.log(options);
     for (key in defaults) {
       value = defaults[key];
       if (!(options[key] != null)) options[key] = value;

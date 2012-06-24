@@ -8,7 +8,7 @@ d3.selection.prototype.tooltip = (f)->
 
   this.each((d,i)->
     options = f.apply(this,arguments)
-    console.log options
+
     for key,value of defaults when not options[key]?
        options[key] = value
 
