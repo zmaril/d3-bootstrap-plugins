@@ -1,7 +1,7 @@
 # d3.js tooltip
 js/css duo for bootstrap style tooltips.
 
-Click [a gisted example](d3-tooltip.herokuapp.com). 
+Click [a gisted example](http://bl.ocks.org/2981335). 
 
 ## Current TODOS
 * Add in better defaults
