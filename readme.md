@@ -13,6 +13,7 @@ Click [a gisted example](http://bl.ocks.org/2981335).
 
 ### Major components:
 * d3.js: [License](https://github.com/mbostock/d3/blob/master/LICENSE)
+* Bootstrap: [License](https://github.com/twitter/bootstrap/blob/master/LICENSE)
 
 ### Everything else:
 
