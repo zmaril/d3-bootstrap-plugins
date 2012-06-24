@@ -10,11 +10,11 @@ bootstrap tooltips.
 An example of how to use it:
 ```
     selection.tooltip(function(d,i){
-    return {
-        'placement': 'top' //Or left, right, or bottom
-        'dy': i*10 //It's a function!
-        'dx': i*Math.PI 
-        };
+        return {
+            'placement': 'top' //Or left, right, or bottom
+            'dy': i*10 //It's a function!
+            'dx': i*Math.PI 
+            };
     })
     
 ```
