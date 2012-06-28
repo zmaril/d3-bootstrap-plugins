@@ -11,20 +11,36 @@ graphic.create = ()->
 
   g = graphic.svg.append("g")
 
+  points = []
+  spacing = 30
+  for i in d3.range(0,height-spacing,spacing)
+    for j in d3.range(0,width-spacing,spacing)
+      points.push(x: i, y: j)
+
   g.selectAll("circle")
-    .data(d3.range(1,10)).enter()
+    .data(points).enter()
     .append("circle")
-    .attr("cx",(d,i)-> d*40)
-    .attr("cy",(d,i)-> d*40)
-    .attr("r",(d,i)-> d*2)
-    .tooltip( (d,i)->
-      title = "Berby Slerth number #{i}? <br />"
-      title += (if i is 2 then " I want this one!" else "Next!")
-      tmp =
-        "title": title
-        "dx": if i % 2 is 1 then 20 else -160
-        "dy": -10
-        "placement": if i % 2 is 1 then "right" else "left"
-    )
+    .attr("cx",(d,i)-> d.x)
+    .attr("cy",(d,i)-> d.y)
+    .attr("r",(d,i)-> Math.round(Math.random()*spacing/2+1))
+    .tooltip(
+      (d,i)->
+        r = +d3.select(this).attr('r')
+
+        detector = if r < 5 then "point" else "shape"
+        {
+        text: "You need to pass in a string for the text value"
+
+        detection:
+          type: "shape"
+
+        placement:
+          type: "fixed"
+          gravity: "right"
+          position: [d.x+r+12,d.y-5]
+
+        mousemove: false
+        }
+      )
 
 $(document).ready(graphic.create)
