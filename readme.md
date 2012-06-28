@@ -1,9 +1,10 @@
 # d3.js meets bootstrap
 js/css duo for bootstrap style [Tooltips](http://bl.ocks.org/2981335) and [Popovers](http://bl.ocks.org/3012212).
 
-## How does it work? 
-plugins.js attaches event listeners to selections that go and display
-bootstrap tooltips or popovers. 
+## How does it work?  
+The tooltip function attaches event listeners to
+selections that go and display bootstrap tooltips or popovers when
+the specified events are detected.
 
 An example of how to use it:
 ```javascript
