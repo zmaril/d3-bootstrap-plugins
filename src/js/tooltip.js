@@ -7,7 +7,10 @@ d3.selection.prototype.tooltip = function(o, f) {
   if (arguments.length < 2) f = o;
   body = d3.select('body');
   defaults = {
-    text: "You need to pass in a string for the text value",
+    content: {
+      type: "tooltip",
+      text: "You need to pass in a string for the text value"
+    },
     detection: {
       type: "shape"
     },
@@ -39,22 +42,29 @@ d3.selection.prototype.tooltip = function(o, f) {
         center[0] += window.scrollX;
         center[1] += window.scrollY;
       }
-      return selection.style("left", "" + center[0] + "px").style("top", "" + center[1] + "px");
+      return selection.style("left", "" + center[0] + "px").style("top", "" + center[1] + "px").style("display", "block");
     };
     el.on("mouseover", function() {
-      var tip;
-      tip = body.append("div").attr("class", "tooltip fade " + options.placement.gravity + " in").style("display", "none");
-      tip.append("div").html(options.text).attr("class", "tooltip-inner");
-      tip.append("div").attr("class", "tooltip-arrow");
+      var inner, tip;
+      tip = body.append("div").attr("class", "" + options.content.type + " fade " + options.placement.gravity + " in").style("display", "none");
+      if (options.content.type === "tooltip") {
+        tip.append("div").html(options.content.text).attr("class", "tooltip-inner");
+      }
+      if (options.content.type === "popover") {
+        inner = tip.append("div").attr("class", "popover-inner");
+        inner.append("h3").text(options.content.title).attr("class", "popover-title");
+        inner.append("div").attr("class", "popover-content").append("p").html(options.content.content[0][0].outerHTML);
+      }
+      tip.append("div").attr("class", "arrow");
       return tip.style("display", "").call(move_tip.bind(this));
     });
     if (options.mousemove) {
       el.on("mousemove", function() {
-        return d3.select(".tooltip").call(move_tip.bind(this));
+        return d3.select("." + options.content.type).call(move_tip.bind(this));
       });
     }
     return el.on("mouseout", function() {
-      return d3.select(".tooltip").remove();
+      return d3.select("." + options.content.type).remove();
     });
   });
 };

@@ -10,7 +10,9 @@ d3.selection.prototype.tooltip = (o,f)->
   #3. What happens when the mouse moves? Mousemove event?
   #4. What does the text display?
   defaults =
-    text: "You need to pass in a string for the text value"
+    content:
+      type: "tooltip"
+      text: "You need to pass in a string for the text value"
 
     detection:
       type: "shape" #voronoi
@@ -47,28 +49,43 @@ d3.selection.prototype.tooltip = (o,f)->
       selection
         .style("left","#{center[0]}px")
         .style("top","#{center[1]}px")
+        .style("display","block")
 
     el.on("mouseover",()->
       tip = body.append("div")
-        .attr("class", "tooltip fade #{options.placement.gravity} in")
+        .attr("class", "#{options.content.type} fade #{options.placement.gravity} in")
         .style("display","none")
 
-      tip.append("div")
-        .html(options.text)
-        .attr("class","tooltip-inner")
+      if options.content.type is "tooltip"
+        tip.append("div")
+          .html(options.content.text)
+          .attr("class","tooltip-inner")
+
+      if options.content.type is "popover"
+        inner = tip.append("div")
+          .attr("class","popover-inner")
+
+        inner.append("h3")
+          .text(options.content.title)
+          .attr("class","popover-title")
+
+        inner.append("div")
+          .attr("class","popover-content")
+          .append("p")
+          .html(options.content.content[0][0].outerHTML)
 
       tip.append("div")
-        .attr("class","tooltip-arrow")
+        .attr("class","arrow")
 
       tip.style("display","").call(move_tip.bind(this))
     )
 
     if options.mousemove
       el.on("mousemove",()->
-        d3.select(".tooltip").call(move_tip.bind(this))
+        d3.select(".#{options.content.type}").call(move_tip.bind(this))
       )
 
     el.on("mouseout",()->
-      d3.select(".tooltip").remove()
+      d3.select(".#{options.content.type}").remove()
     )
   )
