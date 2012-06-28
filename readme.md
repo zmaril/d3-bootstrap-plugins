@@ -1,10 +1,8 @@
 # d3.js tooltip
-js/css duo for bootstrap style tooltips.
-
-Gists: [Tooltips](http://bl.ocks.org/2981335). [Popovers](http://bl.ocks.org/3012212).
+js/css duo for bootstrap style [Tooltips](http://bl.ocks.org/2981335) and [Popovers](http://bl.ocks.org/3012212).
 
 ## How does it work? 
-Tooltip.js attaches event listeners to selections that go and display
+plugins.js attaches event listeners to selections that go and display
 bootstrap tooltips or popovers. 
 
 An example of how to use it:
