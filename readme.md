@@ -1,4 +1,4 @@
-# d3.js tooltip
+# d3.js meets bootstrap
 js/css duo for bootstrap style [Tooltips](http://bl.ocks.org/2981335) and [Popovers](http://bl.ocks.org/3012212).
 
 ## How does it work? 
