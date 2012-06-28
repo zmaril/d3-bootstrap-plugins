@@ -19,7 +19,7 @@ An example of how to use it:
                 title: "A title"
             },
             detection:{
-                type: "shape" #Work in progress
+                type: "shape" //Work in progress. Check back later
             },
             placement:{
                 type: "fixed"
