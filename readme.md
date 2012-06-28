@@ -8,14 +8,14 @@ Tooltip.js attaches event listeners to selections that go and display
 bootstrap tooltips or popovers. 
 
 An example of how to use it:
-```
+```javascript
     selection.tooltip(function(d,i){
         return {        
             content:{
-                type: "tooltip" #Other option: popover
+                type: "tooltip" //Other option: popover
                 text: d.title
                 //For popovers
-                content: svg #A d3 svg element
+                content: svg //A d3 svg element
                 title: "A title"
             },
             detection:{
@@ -23,7 +23,7 @@ An example of how to use it:
             },
             placement:{
                 type: "fixed"
-                gravity: "right" #left,top,bottom
+                gravity: "right" //left,top,bottom
                 position: [d.x,d.y] 
             },            
             mousemove: false
