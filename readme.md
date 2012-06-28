@@ -5,27 +5,39 @@ Click [a gisted example](http://bl.ocks.org/2981335).
 
 ## How does it work? 
 Tooltip.js attaches event listeners to selections that go and display
-bootstrap tooltips. 
+bootstrap tooltips or popovers. 
 
 An example of how to use it:
 ```
     selection.tooltip(function(d,i){
-        return {
-            'placement': 'top' //Or left, right, or bottom
-            'dy': i*10 //It's a function!
-            'dx': i*Math.PI 
-            };
+        return {        
+            content:{
+                type: "tooltip" #Other option: popover
+                text: d.title
+                //For popovers
+                content: svg #A d3 svg element
+                title: "A title"
+            },
+            detection:{
+                type: "shape" #Work in progress
+            },
+            placement:{
+                type: "fixed"
+                gravity: "right" #left,top,bottom
+                position: [d.x,d.y] 
+            },            
+            mousemove: false
+        };
     })
     
 ```
     
-Viola! Tooltips!
+Viola! Tooltips! Popovers!
 ## Current TODOS
 * Add in better defaults
 * Get the animations going
-* Make it do popovers. 
 * Write some tests. 
-* Use it in an actual popover. 
+* Use it in production. 
 
 ## License
 
