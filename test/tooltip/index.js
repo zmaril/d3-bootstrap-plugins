@@ -30,20 +30,19 @@ graphic.create = function() {
   }).attr("r", function(d, i) {
     return Math.round(Math.random() * spacing / 2 + 1);
   }).tooltip(function(d, i) {
-    var detector, r, svg;
+    var r, svg;
     r = +d3.select(this).attr('r');
     svg = d3.select(document.createElement("svg")).attr("height", 50);
     g = svg.append("g");
     g.append("rect").attr("width", r * 10).attr("height", 10);
     g.append("text").text("10 times the radius of the cirlce").attr("dy", "25");
-    detector = r < 5 ? "point" : "shape";
     return {
       content: {
         type: "tooltip",
         text: "Tip for circle of radius " + r
       },
       detection: {
-        type: "shape"
+        type: r < 5 ? "voronoi" : "shape"
       },
       placement: {
         type: "fixed",

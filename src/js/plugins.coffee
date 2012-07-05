@@ -1,3 +1,4 @@
+
 d3.selection.prototype.tooltip = (o,f)->
   if arguments.length < 2 then f = o
 
@@ -9,41 +10,84 @@ d3.selection.prototype.tooltip = (o,f)->
   #3. What happens when the mouse moves? Mousemove event?
   #4. What does the text display?
   defaults =
-    content:
-      type: "tooltip"
-      text: "You need to pass in a string for the text value"
-
-    detection:
-      type: "shape" #voronoi
-     #radius: 5, for voronoi
-
-    placement:
-      type: "fixed" # or "mouse"
-      gravity: "right"
-      position: [100,100] #used only for fixed
-      displacement: [10,10] #used only for mouse
-
+    type: "tooltip"
+    #Tooltip
+    text: "You need to pass in a string for the text value"
+    #Popover
+    title: "Title value"
+    content:"Content examples"
+    #Detector
+    detection: "shape" #voronoi
+    #Placement
+    base: "fixed" # or "mouse"
+    gravity: "right"
+    position: [100,100]
+    #Used for mouse
+    displacement: [0,0]
     mousemove: false
 
-  this.each((d,i)->
-    options = f.apply(this,arguments)
 
-    for key,value of defaults when not options[key]?
-       options[key] = value
+  optionsList = []
+  voronois = []
+  this.each((d,i)->
+    opt = f.apply(this,arguments)
+    optionsList.push(opt)
+    voronois.push([opt,i]) if opt.detection is 'voronoi'
+  )
+
+  debugger
+  if voronois.length isnt 0
+    parent = d3.select(this[0][0].ownerSVGElement)
+    holder = parent.append("g").attr("id","__clip__holder__")
+    console.log voronois
+    positions = (d[0].ponsition for d in voronois)
+    console.log positions
+    sets = d3.geom.voronoi(positions)
+
+    height = parent.attr("height")
+    width = parent.attr("width")
+
+    clipper = d3.geom.polygon([[0,0],[0,height],[width,height],[width,0]]).clip
+
+    clipped = positions.map(clipper)
+
+    holder.append("g").attr("id","clipPaths")
+    .selectAll("clipPath") .data(voronois)
+    .enter().append("clipPath")
+      .attr("id",(d,i)-> "clip-#{i}")
+    .append("circle")
+      .attr("cx",(d)->d[0].position[0])
+      .attr("cy",(d)->d[0].position[1])
+      .attr("r",(d)-> 20)
+
+    holder.append("g").attr("id","clipped")
+    .selectAll("path").data(voronois)
+    .enter().append("path")
+    .attr("d",(d,i)-> "M#{clipped[i].join('L')}Z")
+    .attr("clip-path",(d,i)-> "url(#clip-#{i})")
+
+
+  this.each((d,i)->
+    options = optionsList[i]
 
     el = d3.select(this)
 
     move_tip = (selection)->
       center =  [0,0]
 
-      if options.placement.type is "mouse"
+      if options.base is "mouse"
         center = d3.mouse(body.node())
       else
         offsets =  @ownerSVGElement.getBoundingClientRect()
-        center[0] = offsets.left + options.placement.position[0]
-        center[1] = offsets.top + options.placement.position[1]
+        center[0] = offsets.left
+        center[1] = offsets.top
+        center[0] += options.position[0]
+        center[1] += options.position[1]
         center[0]+= window.scrollX
         center[1]+= window.scrollY
+
+      center[0] += options.displacement[0]
+      center[1] += options.displacement[1]
 
       selection
         .style("left","#{center[0]}px")
@@ -52,23 +96,23 @@ d3.selection.prototype.tooltip = (o,f)->
 
     el.on("mouseover",()->
       tip = body.append("div")
-        .attr("class", "#{options.content.type} fade #{options.placement.gravity} in")
+        .attr("class", "#{options.type} fade #{options.gravity} in")
         .style("display","none")
 
-      if options.content.type is "tooltip"
+      if options.type is "tooltip"
         tip.append("div")
-          .html(options.content.text)
+          .html(options.text)
           .attr("class","tooltip-inner")
 
         tip.append("div")
           .attr("class","tooltip-arrow")
 
-      if options.content.type is "popover"
+      if options.type is "popover"
         inner = tip.append("div")
           .attr("class","popover-inner")
 
         inner.append("h3")
-          .text(options.content.title)
+          .text(options.title)
           .attr("class","popover-title")
 
         inner.append("div")
@@ -84,10 +128,10 @@ d3.selection.prototype.tooltip = (o,f)->
 
     if options.mousemove
       el.on("mousemove",()->
-        d3.select(".#{options.content.type}").call(move_tip.bind(this))
+        d3.select(".#{options.type}").call(move_tip.bind(this))
       )
 
     el.on("mouseout",()->
-      d3.select(".#{options.content.type}").remove()
+      d3.select(".#{options.type}").remove()
     )
   )

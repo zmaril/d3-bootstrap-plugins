@@ -40,14 +40,13 @@ graphic.create = ()->
           .text("10 times the radius of the cirlce")
           .attr("dy","25")
 
-        detector = if r < 5 then "point" else "shape"
         {
         content:
           type: "tooltip"
           text: "Tip for circle of radius #{r}"
 
         detection:
-          type: "shape"
+          type: if r < 5 then "voronoi" else "shape"
 
         placement:
           type: "fixed"
