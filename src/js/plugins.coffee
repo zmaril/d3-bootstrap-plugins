@@ -19,7 +19,7 @@ d3.selection.prototype.tooltip = (o,f)->
     #Detector
     detection: "shape" #voronoi
     #Placement
-    base: "fixed" # or "mouse"
+    placement: "fixed" # or "mouse"
     gravity: "right"
     position: [100,100]
     #Used for mouse
@@ -29,13 +29,14 @@ d3.selection.prototype.tooltip = (o,f)->
 
   optionsList = []
   voronois = []
+
   this.each((d,i)->
     opt = f.apply(this,arguments)
     optionsList.push(opt)
     voronois.push([opt,i]) if opt.detection is 'voronoi'
   )
 
-  debugger
+  #Creating a voronoi underlay
   if voronois.length isnt 0
     parent = d3.select(this[0][0].ownerSVGElement)
     holder = parent.append("g").attr("id","__clip__holder__")
@@ -75,7 +76,7 @@ d3.selection.prototype.tooltip = (o,f)->
     move_tip = (selection)->
       center =  [0,0]
 
-      if options.base is "mouse"
+      if options.placement is "mouse"
         center = d3.mouse(body.node())
       else
         offsets =  @ownerSVGElement.getBoundingClientRect()
@@ -118,7 +119,7 @@ d3.selection.prototype.tooltip = (o,f)->
         inner.append("div")
           .attr("class","popover-content")
           .append("p")
-          .html(options.content.content[0][0].outerHTML)
+          .html(options.content[0][0].outerHTML)
 
         tip.append("div")
           .attr("class","arrow")

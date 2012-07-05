@@ -9,7 +9,7 @@ d3.selection.prototype.tooltip = function(o, f) {
     title: "Title value",
     content: "Content examples",
     detection: "shape",
-    base: "fixed",
+    placement: "fixed",
     gravity: "right",
     position: [100, 100],
     displacement: [0, 0],
@@ -23,7 +23,6 @@ d3.selection.prototype.tooltip = function(o, f) {
     optionsList.push(opt);
     if (opt.detection === 'voronoi') return voronois.push([opt, i]);
   });
-  debugger;
   if (voronois.length !== 0) {
     parent = d3.select(this[0][0].ownerSVGElement);
     holder = parent.append("g").attr("id", "__clip__holder__");
@@ -65,7 +64,7 @@ d3.selection.prototype.tooltip = function(o, f) {
     move_tip = function(selection) {
       var center, offsets;
       center = [0, 0];
-      if (options.base === "mouse") {
+      if (options.placement === "mouse") {
         center = d3.mouse(body.node());
       } else {
         offsets = this.ownerSVGElement.getBoundingClientRect();
@@ -90,7 +89,7 @@ d3.selection.prototype.tooltip = function(o, f) {
       if (options.type === "popover") {
         inner = tip.append("div").attr("class", "popover-inner");
         inner.append("h3").text(options.title).attr("class", "popover-title");
-        inner.append("div").attr("class", "popover-content").append("p").html(options.content.content[0][0].outerHTML);
+        inner.append("div").attr("class", "popover-content").append("p").html(options.content[0][0].outerHTML);
         tip.append("div").attr("class", "arrow");
       }
       return tip.style("display", "").call(move_tip.bind(this));

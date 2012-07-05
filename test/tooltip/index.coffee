@@ -41,19 +41,16 @@ graphic.create = ()->
           .attr("dy","25")
 
         {
-        content:
           type: "tooltip"
           text: "Tip for circle of radius #{r}"
 
-        detection:
-          type: if r < 5 then "voronoi" else "shape"
+          detection: "shape"
 
-        placement:
-          type: "fixed"
+          placement: "fixed"
           gravity: "right"
-          position: [d.x+r+12,d.y]
-
-        mousemove: false
+          position: [d.x+r,d.y]
+          displacement:[12,0]
+          mousemove: false
         }
       )
 

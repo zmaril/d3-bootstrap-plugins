@@ -37,18 +37,13 @@ graphic.create = function() {
     g.append("rect").attr("width", r * 10).attr("height", 10);
     g.append("text").text("10 times the radius of the cirlce").attr("dy", "25");
     return {
-      content: {
-        type: "tooltip",
-        text: "Tip for circle of radius " + r
-      },
-      detection: {
-        type: r < 5 ? "voronoi" : "shape"
-      },
-      placement: {
-        type: "fixed",
-        gravity: "right",
-        position: [d.x + r + 12, d.y]
-      },
+      type: "tooltip",
+      text: "Tip for circle of radius " + r,
+      detection: "shape",
+      placement: "fixed",
+      gravity: "right",
+      position: [d.x + r, d.y],
+      displacement: [12, 0],
       mousemove: false
     };
   });

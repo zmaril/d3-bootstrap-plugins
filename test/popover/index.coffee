@@ -40,22 +40,18 @@ graphic.create = ()->
           .text("10 times the radius of the cirlce")
           .attr("dy","25")
 
-        detector = if r < 5 then "point" else "shape"
         {
-        content:
           type: "popover"
           title: "It's a me, Rectangle"
           content: svg
 
-        detection:
-          type: "shape"
+          detection: "shape"
 
-        placement:
-          type: "fixed"
+          placement: "fixed"
           gravity: "right"
-          position: [d.x+r+12,d.y-57]
-
-        mousemove: false
+          position: [d.x,d.y]
+          displacement: [r+12,-57]
+          mousemove: false
         }
       )
 
