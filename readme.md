@@ -10,21 +10,14 @@ An example of how to use it:
 ```javascript
     selection.tooltip(function(d,i){
         return {        
-            content:{
-                type: "tooltip" //Other option: popover
-                text: d.title
-                //For popovers
-                content: svg //A d3 svg element
-                title: "A title"
-            },
-            detection:{
-                type: "shape" //Work in progress. Check back later
-            },
-            placement:{
-                type: "fixed"
-                gravity: "right" //left,top,bottom
-                position: [d.x,d.y] 
-            },            
+            type: "popover", //Other option: tooltip
+            text: "You need to pass in a string for the text value",
+            content: svg, //A d3 svg element
+            detection: "shape", //Work in progress. Check back later
+            placement: "fixed",
+            gravity: "right", //left,top,bottom
+            position: [100, 100],
+            displacement: [10, 10],
             mousemove: false
         };
     })

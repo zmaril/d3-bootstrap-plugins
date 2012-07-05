@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="../tooltip.css">
+</head>
+<body>
+    <div id="graphic"></div>
+    <script src="http://d3js.org/d3.v2.min.js?2.8.1"></script>
+    <script src="../tooltip.js"></script>
+    <script>
+    var graphic;
+
+    graphic = new Object;
+    
+    graphic.create = function() {
+      var width = window.innerWidth / 2;
+      var height = window.innerHeight * .85;
+      var size = d3.min([width, height]);
+      
+      graphic.svg = d3.select("#graphic").append("svg").attr("width", size).attr("height", size);
+      
+      var g = graphic.svg.append("g");
+      
+      return g.selectAll("circle")
+        .data(d3.range(1, 10))
+        .enter()
+        .append("circle")
+        .attr("cx", function(d, i) {
+          return d * 40;
+        }).attr("cy", function(d, i) {
+          return d * 40;
+        }).attr("r", function(d, i) {
+          return d * 2;
+        }).tooltip(function(d, i) {
+          var title, tmp;
+          title = "Berby Slerth number " + i + "? <br />";
+          title += (i === 2 ? " I want this one!" : "Next!");
+          console.log(d,i);
+          return {
+            text: title,
+            gravity: i % 2 === 1 ? "right" : "left",
+            position: [d * 40, d * 40],
+            displacement: [i % 2 === 1 ? 20 : -160, -20]
+          };
+        });
+    };
+    
+    graphic.create();
+    </script>
+</body>
+</html>
