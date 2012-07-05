@@ -3,7 +3,7 @@ var graphic;
 graphic = new Object;
 
 graphic.create = function() {
-  var g, height, i, j, points, size, spacing, width, _i, _j, _len, _len2, _ref, _ref2;
+  var g, height, i, j, points, size, spacing, width, _i, _j, _len, _len1, _ref, _ref1;
   width = $(document).width() / 2;
   height = $(document).height() * .85;
   size = d3.min([width, height]);
@@ -14,9 +14,9 @@ graphic.create = function() {
   _ref = d3.range(0, height - spacing, spacing);
   for (_i = 0, _len = _ref.length; _i < _len; _i++) {
     i = _ref[_i];
-    _ref2 = d3.range(0, width - spacing, spacing);
-    for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
-      j = _ref2[_j];
+    _ref1 = d3.range(0, width - spacing, spacing);
+    for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+      j = _ref1[_j];
       points.push({
         x: i,
         y: j
@@ -44,7 +44,7 @@ graphic.create = function() {
       placement: "fixed",
       gravity: "right",
       position: [d.x, d.y],
-      displacement: [r + 12, -57],
+      displacement: [r + 2, -72],
       mousemove: false
     };
   });
