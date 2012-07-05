@@ -48,7 +48,7 @@
             .style("display", "none");
             
           setTimeout(function() {
-              tip.classed('in', true)
+              tip.classed('in', true);
           }, 10);
             
           if (options.type === "tooltip") {
