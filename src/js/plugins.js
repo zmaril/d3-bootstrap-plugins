@@ -1,7 +1,8 @@
-
 d3.selection.prototype.tooltip = function(o, f) {
   var body, clipped, clipper, d, defaults, height, holder, optionsList, parent, positions, sets, voronois, width;
-  if (arguments.length < 2) f = o;
+  if (arguments.length < 2) {
+    f = o;
+  }
   body = d3.select('body');
   defaults = {
     type: "tooltip",
@@ -21,7 +22,9 @@ d3.selection.prototype.tooltip = function(o, f) {
     var opt;
     opt = f.apply(this, arguments);
     optionsList.push(opt);
-    if (opt.detection === 'voronoi') return voronois.push([opt, i]);
+    if (opt.detection === 'voronoi') {
+      return voronois.push([opt, i]);
+    }
   });
   if (voronois.length !== 0) {
     parent = d3.select(this[0][0].ownerSVGElement);
@@ -32,7 +35,7 @@ d3.selection.prototype.tooltip = function(o, f) {
       _results = [];
       for (_i = 0, _len = voronois.length; _i < _len; _i++) {
         d = voronois[_i];
-        _results.push(d[0].ponsition);
+        _results.push(d[0].position);
       }
       return _results;
     })();
@@ -81,17 +84,19 @@ d3.selection.prototype.tooltip = function(o, f) {
     };
     el.on("mouseover", function() {
       var inner, tip;
-      tip = body.append("div").attr("class", "" + options.type + " fade " + options.gravity + " in").style("display", "none");
+      tip = body.append("div").classed(options.type, true).classed(options.gravity, true).classed('fade', true).style("display", "none");
       if (options.type === "tooltip") {
         tip.append("div").html(options.text).attr("class", "tooltip-inner");
-        tip.append("div").attr("class", "tooltip-arrow");
       }
       if (options.type === "popover") {
         inner = tip.append("div").attr("class", "popover-inner");
         inner.append("h3").text(options.title).attr("class", "popover-title");
         inner.append("div").attr("class", "popover-content").append("p").html(options.content[0][0].outerHTML);
-        tip.append("div").attr("class", "arrow");
       }
+      tip.append("div").attr("class", "arrow");
+      setTimeout(function() {
+        return tip.classed('in', true);
+      }, 10);
       return tip.style("display", "").call(move_tip.bind(this));
     });
     if (options.mousemove) {
@@ -100,7 +105,11 @@ d3.selection.prototype.tooltip = function(o, f) {
       });
     }
     return el.on("mouseout", function() {
-      return d3.select("." + options.type).remove();
+      var tip;
+      tip = d3.selectAll("." + options.type).classed('in', false);
+      return setTimeout(function() {
+        return tip.remove();
+      }, 150);
     });
   });
 };
