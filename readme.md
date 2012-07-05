@@ -33,8 +33,12 @@ An example of how to use it:
     
 Viola! Tooltips! Popovers!
 ## Current TODOS
-* Add in better defaults
-* Get the animations going
+* Add in better defaults.
+* Get the animated fading going.
+* Divorce tooltips from popovers. Make them both call the same/
+  positioning and eventing method, but have them pass in the created
+  html.
+* Get easy voronoi detection working without breaking everything. 
 * Write some tests. 
 * Use it in production. 
 
