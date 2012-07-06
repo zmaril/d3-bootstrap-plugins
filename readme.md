@@ -10,21 +10,17 @@ An example of how to use it:
 ```javascript
     selection.tooltip(function(d,i){
         return {        
-            content:{
-                type: "tooltip" //Other option: popover
-                text: d.title
-                //For popovers
-                content: svg //A d3 svg element
-                title: "A title"
-            },
-            detection:{
-                type: "shape" //Work in progress. Check back later
-            },
-            placement:{
-                type: "fixed"
-                gravity: "right" //left,top,bottom
-                position: [d.x,d.y] 
-            },            
+            type: "tooltip" //Other option: popover
+            //For tooltips
+            text: d.title
+            //For popovers
+            content: svg //A d3 svg element
+            title: "A title"
+            detection: "shape" //Work in progress. Check back later
+            placement: "fixed"
+            gravity: "right" //left,top,bottom
+            position: [d.x,d.y]
+            displacement: [0,20]            
             mousemove: false
         };
     })
@@ -33,15 +29,14 @@ An example of how to use it:
     
 Viola! Tooltips! Popovers!
 ## Current TODOS
-* Add in better defaults.
-* Get the animated fading going.
+* Better defaults.
 * Divorce tooltips from popovers. Make them both call the same/
   positioning and eventing method, but have them pass in the created
   html.
 * Get easy voronoi detection working without breaking everything. 
 * Write some tests. 
 * Use it in production. 
-
+* begin.js, end.js, a makefile, and a ruby watcher script to help with scopiing. 
 ## License
 
 ### Major components:
