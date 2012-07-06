@@ -1,0 +1,33 @@
+{
+  "name": "d3-bootstrap-plugin",
+  "preferGlobal": "true",
+  "version": "0.0.1",
+  "author": "Zack Maril <zack@zacharymaril.com>",
+  "description": "js/css duo for bootstrap style tooltips and popovers in d3.",
+  "contributors": [
+    {
+      "name": "Zack Maril",
+      "email": "zack@zacharymaril.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zmaril/d3-bootstrap-plugins"
+  },
+  "keywords": [
+    "d3",
+    "bootstrap",
+    "tooltip",
+    "popover"
+  ],
+  "dependencies" : {
+    "d3"   :  "2.x.x"
+  },
+  "noAnalyze": true,
+  "devDependencies": {
+    "grunt"    :  "0.3.11"
+  },
+  "bundleDependencies": [
+  ],
+  "license": "MIT"
+}
