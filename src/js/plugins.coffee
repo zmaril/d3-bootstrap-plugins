@@ -1,4 +1,3 @@
-
 d3.selection.prototype.tooltip = (o,f)->
   if arguments.length < 2 then f = o
 
@@ -41,7 +40,7 @@ d3.selection.prototype.tooltip = (o,f)->
     parent = d3.select(this[0][0].ownerSVGElement)
     holder = parent.append("g").attr("id","__clip__holder__")
     console.log voronois
-    positions = (d[0].ponsition for d in voronois)
+    positions = (d[0].position for d in voronois)
     console.log positions
     sets = d3.geom.voronoi(positions)
 
@@ -60,7 +59,6 @@ d3.selection.prototype.tooltip = (o,f)->
       .attr("cx",(d)->d[0].position[0])
       .attr("cy",(d)->d[0].position[1])
       .attr("r",(d)-> 20)
-
     holder.append("g").attr("id","clipped")
     .selectAll("path").data(voronois)
     .enter().append("path")
@@ -82,8 +80,10 @@ d3.selection.prototype.tooltip = (o,f)->
         offsets =  @ownerSVGElement.getBoundingClientRect()
         center[0] = offsets.left
         center[1] = offsets.top
+        
         center[0] += options.position[0]
         center[1] += options.position[1]
+        
         center[0]+= window.scrollX
         center[1]+= window.scrollY
 
@@ -97,16 +97,15 @@ d3.selection.prototype.tooltip = (o,f)->
 
     el.on("mouseover",()->
       tip = body.append("div")
-        .attr("class", "#{options.type} fade #{options.gravity} in")
+        .classed(options.type, true)
+        .classed(options.gravity, true)
+        .classed('fade', true)
         .style("display","none")
-
+        
       if options.type is "tooltip"
         tip.append("div")
           .html(options.text)
           .attr("class","tooltip-inner")
-
-        tip.append("div")
-          .attr("class","tooltip-arrow")
 
       if options.type is "popover"
         inner = tip.append("div")
@@ -120,10 +119,12 @@ d3.selection.prototype.tooltip = (o,f)->
           .attr("class","popover-content")
           .append("p")
           .html(options.content[0][0].outerHTML)
-
-        tip.append("div")
-          .attr("class","arrow")
-
+          
+      tip.append("div").attr("class","arrow")
+      setTimeout(()->
+          tip.classed('in', true)
+      , 10);
+      
       tip.style("display","").call(move_tip.bind(this))
     )
 
@@ -133,6 +134,9 @@ d3.selection.prototype.tooltip = (o,f)->
       )
 
     el.on("mouseout",()->
-      d3.select(".#{options.type}").remove()
+      tip = d3.selectAll("." + options.type).classed('in', false)
+      setTimeout(()->
+          tip.remove()
+      , 150)
     )
   )

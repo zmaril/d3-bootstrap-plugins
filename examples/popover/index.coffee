@@ -50,7 +50,7 @@ graphic.create = ()->
           placement: "fixed"
           gravity: "right"
           position: [d.x,d.y]
-          displacement: [r+12,-57]
+          displacement: [r+2,-72]
           mousemove: false
         }
       )
