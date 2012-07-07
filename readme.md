@@ -10,25 +10,31 @@ An example of how to use it:
 ```javascript
 selection.tooltip(function(d,i){
     return {        
-      text: d.title
-      detection: "shape" //Work in progress. Check back later
-      placement: "fixed"
-      gravity: "right" //left,top,bottom
+      //The text within the tooltip
+      text: d.title 
+      //Where 
+      placement: "fixed" 
+      // Base positioning. Not used when placement is "mouse"
       position: [d.x,d.y]
-      displacement: [0,20]            
+      //How far the tooltip is shifted from the base
+      displacement: [0,20] //Shifting parts of the graph over.           
+      //If "mouse"" is the base poistion, then mousemove true allows
+      //the tooltip to move with the mouse
       mousemove: false
     };
 });
 
 selection.popover(function(d,i){
+    //TODO: add in a svg element here based on data
     return {        
-      content: svg //A d3 svg element
-      title: "A title"
-      detection: "shape" //Work in progress. Check back later
+      // The title that will be displayed on the popover
+      title: "A title" 
+      //A d3 svg element
+      content: svg 
       placement: "fixed"
-      gravity: "right" //left,top,bottom
+      gravity: "right" 
       position: [d.x,d.y]
-      displacement: [0,20+i]            
+      displacement: [0,20]            
       mousemove: false
       };
 });
