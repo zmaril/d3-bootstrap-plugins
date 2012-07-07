@@ -23,7 +23,7 @@ graphic.create = ()->
     .attr("cx",(d,i)-> d.x)
     .attr("cy",(d,i)-> d.y)
     .attr("r",(d,i)-> Math.round(Math.random()*spacing/2+1))
-    .tooltip(
+    .popover(
       (d,i)->
         r = +d3.select(this).attr('r')
 
@@ -41,7 +41,6 @@ graphic.create = ()->
           .attr("dy","25")
 
         {
-          type: "popover"
           title: "It's a me, Rectangle"
           content: svg
 

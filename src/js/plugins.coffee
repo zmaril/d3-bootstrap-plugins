@@ -1,42 +1,4 @@
-d3.selection.prototype.tooltip = (o,f)->
-  if arguments.length < 2 then f = o
-
-  body = d3.select('body')
-
-  #Things that determine the tooltip:
-  #1. When does the event get fired? Shape or voronoi hovering
-  #2. Where is the tooltip placed? Gravity, position, mouse based position.
-  #3. What happens when the mouse moves? Mousemove event?
-  #4. What does the text display?
-  defaults =
-    type: "tooltip"
-    #Tooltip
-    text: "You need to pass in a string for the text value"
-    #Popover
-    title: "Title value"
-    content:"Content examples"
-    #Detector
-    detection: "shape" #voronoi
-    #Placement
-    placement: "fixed" # or "mouse"
-    gravity: "right"
-    position: [100,100]
-    #Used for mouse
-    displacement: [0,0]
-    mousemove: false
-
-
-  optionsList = []
-
-  this.each((d,i)->
-    opt = f.apply(this,arguments)
-    optionsList.push(opt)
-  )
-
-
-  this.each((d,i)->
-    options = optionsList[i]
-
+annotate = (options,create)->
     el = d3.select(this)
 
     move_tip = (selection)->
@@ -64,47 +26,78 @@ d3.selection.prototype.tooltip = (o,f)->
         .style("display","block")
 
     el.on("mouseover",()->
-      tip = body.append("div")
-        .classed(options.type, true)
+      tip = create()
+
+      tip.classed("annotation", true)
         .classed(options.gravity, true)
         .classed('fade', true)
         .style("display","none")
 
-      if options.type is "tooltip"
-        tip.append("div")
-          .html(options.text)
-          .attr("class","tooltip-inner")
+      tip.append("div")
+        .attr("class","arrow")
 
-      if options.type is "popover"
-        inner = tip.append("div")
-          .attr("class","popover-inner")
+      inner = ()-> tip.classed('in', true)
 
-        inner.append("h3")
-          .text(options.title)
-          .attr("class","popover-title")
-
-        inner.append("div")
-          .attr("class","popover-content")
-          .append("p")
-          .html(options.content[0][0].outerHTML)
-
-      tip.append("div").attr("class","arrow")
-      setTimeout(()->
-          tip.classed('in', true)
-      , 10);
+      setTimeout(inner,10)
 
       tip.style("display","").call(move_tip.bind(this))
     )
 
     if options.mousemove
       el.on("mousemove",()->
-        d3.select(".#{options.type}").call(move_tip.bind(this))
+        d3.select(".annotation").call(move_tip.bind(this))
       )
 
     el.on("mouseout",()->
-      tip = d3.selectAll("." + options.type).classed('in', false)
-      setTimeout(()->
-          tip.remove()
-      , 150)
+      tip = d3.selectAll(".annotation").classed('in', false)
+      remover = ()-> tip.remove()
+      setTimeout(remover,150)
     )
+
+d3.selection.prototype.popover = (f)->
+  body = d3.select('body')
+
+  this.each((d,i)->
+    options = f.apply(this,arguments)
+
+    create_popover = ()->
+
+      tip = body.append("div")
+        .classed("popover", true)
+
+      inner = tip.append("div")
+        .attr("class","popover-inner")
+
+      inner.append("h3")
+        .text(options.title)
+        .attr("class","popover-title")
+
+      inner.append("div")
+        .attr("class","popover-content")
+        .append("p")
+        .html(options.content[0][0].outerHTML)
+
+      return tip
+
+    annotate.call(this,options,create_popover)
   )
+
+
+d3.selection.prototype.tooltip = (f)->
+  body = d3.select('body')
+
+  this.each (d,i)->
+
+    options = f.apply(this,arguments)
+
+    create_tooltip = ()->
+      tip = body.append("div")
+        .classed("tooltip", true)
+
+      tip.append("div")
+        .html(options.text)
+        .attr("class","tooltip-inner")
+
+      return tip
+
+    annotate.call(this,options,create_tooltip)
