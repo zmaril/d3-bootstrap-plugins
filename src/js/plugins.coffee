@@ -27,43 +27,11 @@ d3.selection.prototype.tooltip = (o,f)->
 
 
   optionsList = []
-  voronois = []
 
   this.each((d,i)->
     opt = f.apply(this,arguments)
     optionsList.push(opt)
-    voronois.push([opt,i]) if opt.detection is 'voronoi'
   )
-
-  #Creating a voronoi underlay
-  if voronois.length isnt 0
-    parent = d3.select(this[0][0].ownerSVGElement)
-    holder = parent.append("g").attr("id","__clip__holder__")
-    console.log voronois
-    positions = (d[0].position for d in voronois)
-    console.log positions
-    sets = d3.geom.voronoi(positions)
-
-    height = parent.attr("height")
-    width = parent.attr("width")
-
-    clipper = d3.geom.polygon([[0,0],[0,height],[width,height],[width,0]]).clip
-
-    clipped = positions.map(clipper)
-
-    holder.append("g").attr("id","clipPaths")
-    .selectAll("clipPath") .data(voronois)
-    .enter().append("clipPath")
-      .attr("id",(d,i)-> "clip-#{i}")
-    .append("circle")
-      .attr("cx",(d)->d[0].position[0])
-      .attr("cy",(d)->d[0].position[1])
-      .attr("r",(d)-> 20)
-    holder.append("g").attr("id","clipped")
-    .selectAll("path").data(voronois)
-    .enter().append("path")
-    .attr("d",(d,i)-> "M#{clipped[i].join('L')}Z")
-    .attr("clip-path",(d,i)-> "url(#clip-#{i})")
 
 
   this.each((d,i)->
@@ -80,10 +48,10 @@ d3.selection.prototype.tooltip = (o,f)->
         offsets =  @ownerSVGElement.getBoundingClientRect()
         center[0] = offsets.left
         center[1] = offsets.top
-        
+
         center[0] += options.position[0]
         center[1] += options.position[1]
-        
+
         center[0]+= window.scrollX
         center[1]+= window.scrollY
 
@@ -101,7 +69,7 @@ d3.selection.prototype.tooltip = (o,f)->
         .classed(options.gravity, true)
         .classed('fade', true)
         .style("display","none")
-        
+
       if options.type is "tooltip"
         tip.append("div")
           .html(options.text)
@@ -119,12 +87,12 @@ d3.selection.prototype.tooltip = (o,f)->
           .attr("class","popover-content")
           .append("p")
           .html(options.content[0][0].outerHTML)
-          
+
       tip.append("div").attr("class","arrow")
       setTimeout(()->
           tip.classed('in', true)
       , 10);
-      
+
       tip.style("display","").call(move_tip.bind(this))
     )
 
