@@ -1,3 +1,7 @@
+#... node
+node_modules
+build
+
 # Numerous always-ignore extensions
 *.diff
 *.err
@@ -44,3 +48,17 @@ publish
 # build script local files
 build/buildinfo.properties
 build/config/buildinfo.properties
+
+#emacs junk
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+.\#*
+
+# Org-mode
+.org-id-locations
+*_archive
