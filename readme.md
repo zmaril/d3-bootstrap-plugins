@@ -10,12 +10,7 @@ An example of how to use it:
 ```javascript
     selection.tooltip(function(d,i){
         return {        
-            type: "tooltip" //Other option: popover
-            //For tooltips
             text: d.title
-            //For popovers
-            content: svg //A d3 svg element
-            title: "A title"
             detection: "shape" //Work in progress. Check back later
             placement: "fixed"
             gravity: "right" //left,top,bottom
@@ -23,30 +18,43 @@ An example of how to use it:
             displacement: [0,20]            
             mousemove: false
         };
-    })
-    
+    });
+
+    selection.popover(function(d,i){
+        return {        
+            content: svg //A d3 svg element
+            title: "A title"
+            detection: "shape" //Work in progress. Check back later
+            placement: "fixed"
+            gravity: "right" //left,top,bottom
+            position: [d.x,d.y]
+            displacement: [0,20+i]            
+            mousemove: false
+        };
+    });
+
 ```
     
 Viola! Tooltips! Popovers!
 
 ## Current TODOS
-* Better defaults.
-* Divorce tooltips from popovers. Make them both call the same/
-  positioning and eventing method, but have them pass in the created
-  html. _This is the main focus right now._
 * Get easy voronoi detection working without breaking
-  everything. Checkout the [voronoi](https://github.com/zmaril/d3-bootstrap-plugins/tree/voronoi) branch for current work on this. 
+  everything. Checkout the
+  [voronoi](https://github.com/zmaril/d3-bootstrap-plugins/tree/voronoi)
+  branch for current work on this. 
+* Bring over the less files from bootstrap directly instead of
+  replying on their css. 
 * Write some tests. 
 * Use it in production. 
-* begin.js, end.js to help with scoping. 
 
 ## Contributing
 
-Local development:
+Local development uses grunt (`npm install grunt`)
 
-`npm install grunt`
-`grunt watch`
-`grunt build`
+`grunt watch`- automatically compile the files as you change the src directory
+
+`grunt build`- goes through concatenation and minification of js and
+css. 
 
 If you are adding new features, please create an example that
 demonstrates that feature specifically.
