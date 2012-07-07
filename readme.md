@@ -1,5 +1,5 @@
 # d3.js meets bootstrap
-js/css duo for bootstrap style [Tooltips](http://bl.ocks.org/2981335) and [Popovers](http://bl.ocks.org/3012212).
+js/css duo for bootstrap style [tooltips](http://bl.ocks.org/2981335) and [popovers](http://bl.ocks.org/3012212).
 
 ## How does it work?  
 The tooltip function attaches event listeners to
@@ -28,6 +28,7 @@ An example of how to use it:
 ```
     
 Viola! Tooltips! Popovers!
+
 ## Current TODOS
 * Better defaults.
 * Divorce tooltips from popovers. Make them both call the same/
@@ -36,7 +37,19 @@ Viola! Tooltips! Popovers!
 * Get easy voronoi detection working without breaking everything. 
 * Write some tests. 
 * Use it in production. 
-* begin.js, end.js, a makefile, and a ruby watcher script to help with scopiing. 
+* begin.js, end.js to help with scoping. 
+
+## Contributing
+
+Local development:
+
+`npm install grunt`
+`grunt watch`
+`grunt build`
+
+If you are adding new features, please create an example that demonstrates
+that feature specifically.  
+
 ## License
 
 ### Major components:
@@ -45,4 +58,4 @@ Viola! Tooltips! Popovers!
 
 ### Everything else:
 
-Public domain. 
+MIT License.
