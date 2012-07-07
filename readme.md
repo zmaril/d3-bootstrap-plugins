@@ -8,30 +8,30 @@ the specified events are detected.
 
 An example of how to use it:
 ```javascript
-    selection.tooltip(function(d,i){
-        return {        
-            text: d.title
-            detection: "shape" //Work in progress. Check back later
-            placement: "fixed"
-            gravity: "right" //left,top,bottom
-            position: [d.x,d.y]
-            displacement: [0,20]            
-            mousemove: false
-        };
-    });
+selection.tooltip(function(d,i){
+    return {        
+      text: d.title
+      detection: "shape" //Work in progress. Check back later
+      placement: "fixed"
+      gravity: "right" //left,top,bottom
+      position: [d.x,d.y]
+      displacement: [0,20]            
+      mousemove: false
+    };
+});
 
-    selection.popover(function(d,i){
-        return {        
-            content: svg //A d3 svg element
-            title: "A title"
-            detection: "shape" //Work in progress. Check back later
-            placement: "fixed"
-            gravity: "right" //left,top,bottom
-            position: [d.x,d.y]
-            displacement: [0,20+i]            
-            mousemove: false
-        };
-    });
+selection.popover(function(d,i){
+    return {        
+      content: svg //A d3 svg element
+      title: "A title"
+      detection: "shape" //Work in progress. Check back later
+      placement: "fixed"
+      gravity: "right" //left,top,bottom
+      position: [d.x,d.y]
+      displacement: [0,20+i]            
+      mousemove: false
+      };
+});
 
 ```
     
