@@ -33,8 +33,9 @@ Viola! Tooltips! Popovers!
 * Better defaults.
 * Divorce tooltips from popovers. Make them both call the same/
   positioning and eventing method, but have them pass in the created
-  html.
-* Get easy voronoi detection working without breaking everything. 
+  html. _This is the main focus right now._
+* Get easy voronoi detection working without breaking
+  everything. Checkout the [voronoi](https://github.com/zmaril/d3-bootstrap-plugins/tree/voronoi) branch for current work on this. 
 * Write some tests. 
 * Use it in production. 
 * begin.js, end.js to help with scoping. 
@@ -47,8 +48,8 @@ Local development:
 `grunt watch`
 `grunt build`
 
-If you are adding new features, please create an example that demonstrates
-that feature specifically.  
+If you are adding new features, please create an example that
+demonstrates that feature specifically.
 
 ## License
 
