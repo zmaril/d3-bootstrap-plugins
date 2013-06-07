@@ -9,6 +9,8 @@ annotate = function(options, create) {
   move_tip = function(selection) {
     var center, offsets;
     center = [0, 0];
+    var body;
+    body = d3.select('body');
     if (options.placement === "mouse") {
       center = d3.mouse(body.node());
     } else {
