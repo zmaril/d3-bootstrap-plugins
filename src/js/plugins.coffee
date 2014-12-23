@@ -5,7 +5,7 @@ annotate = (options,create)->
       center =  [0,0]
 
       if options.placement is "mouse"
-        center = d3.mouse(body.node())
+        center = d3.mouse(d3.select('body').node())
       else
         offsets =  @ownerSVGElement.getBoundingClientRect()
         center[0] = offsets.left
@@ -14,8 +14,8 @@ annotate = (options,create)->
         center[0] += options.position[0]
         center[1] += options.position[1]
 
-        center[0]+= window.scrollX
-        center[1]+= window.scrollY
+        center[0]+= window.pageXOffset
+        center[1]+= window.pageYOffset
 
       center[0] += options.displacement[0]
       center[1] += options.displacement[1]
