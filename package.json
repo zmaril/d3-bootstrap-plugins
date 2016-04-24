@@ -1,13 +1,12 @@
 {
   "name": "d3-bootstrap-plugins",
   "version": "0.0.1",
-  "author": "Zack Maril <zack@zacharymaril.com>",
+  "author": {
+    "name": "Zack Maril",
+    "email": "zack@zacharymaril.com"
+  },
   "homepage": "https://github.com/zmaril/d3-bootstrap-plugins",
   "description": "js/css duo for bootstrap style tooltips and popovers in d3.",
-  "author":{
-      "name": "Zack Maril",
-      "email": "zack@zacharymaril.com"
-    },
   "repository": {
     "type": "git",
     "url": "https://github.com/zmaril/d3-bootstrap-plugins"
@@ -18,16 +17,18 @@
     "tooltip",
     "popover"
   ],
-  "dependencies" : {
-    "d3"   :  "2.x.x"
+  "dependencies": {
+    "d3": "2.x.x"
   },
   "noAnalyze": true,
   "devDependencies": {
-    "grunt"    :  "0.3.11",
-    "grunt-css"    :  "0.2.1",
-    "grunt-coffee"    :  "0.0.2"
+    "grunt": "^1.0.1",
+    "grunt-contrib-coffee": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0"
   },
-  "bundleDependencies": [
-  ],
+  "bundleDependencies": [],
   "license": "MIT"
 }
