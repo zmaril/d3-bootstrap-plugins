@@ -9,22 +9,20 @@ annotate = function(options, create) {
   move_tip = function(selection) {
     var center, offsets;
     center = [0, 0];
-    var body;
-    body = d3.select('body');
     if (options.placement === "mouse") {
-      center = d3.mouse(body.node());
+      center = d3.mouse(d3.select('body').node());
     } else {
       offsets = this.ownerSVGElement.getBoundingClientRect();
       center[0] = offsets.left;
       center[1] = offsets.top;
       center[0] += options.position[0];
       center[1] += options.position[1];
-      center[0] += window.scrollX;
-      center[1] += window.scrollY;
+      center[0] += window.pageXOffset;
+      center[1] += window.pageYOffset;
     }
     center[0] += options.displacement[0];
     center[1] += options.displacement[1];
-    return selection.style("left", "" + center[0] + "px").style("top", "" + center[1] + "px").style("display", "block");
+    return selection.style("left", center[0] + "px").style("top", center[1] + "px").style("display", "block");
   };
   el.on("mouseover", function() {
     var inner, tip;
